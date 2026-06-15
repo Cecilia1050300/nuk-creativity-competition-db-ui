@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project 管理子系統</title>
+    <style>
+        body {
+            background-color: #003366; /* 深藍色背景 */
+            color: #fff; /* 白色文字 */
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            background-color: #FFFAF0; /* 米黃色 */
+            color: #000; /* 黑色文字 */
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 900px;
+        }
+        h2 {
+            text-align: center;
+            color: #003366;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+        th, td {
+            text-align: center;
+            padding: 8px;
+        }
+        .button {
+            background-color: green;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .input-field {
+            padding: 5px;
+            width: 70%;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 一般作品查詢區塊 -->
+    <div class="container">
+        <h2>Project管理子系統</h2>
+        <form id="query-form">
+            <label for="year">選擇年分:</label>
+            <select id="year" class="input-field">
+                <option value="2024">2024</option>
+                <option value="2023">2023</option>
+                <option value="2022">2022</option>
+                <option value="2021">2021</option>
+                <option value="2020">2020</option>
+            </select>
+
+            <label for="team-name">輸入隊伍名稱:</label>
+            <input type="text" id="team-name" class="input-field" placeholder="輸入隊伍名稱" required>
+
+            <button type="button" class="button" onclick="queryProject()">查詢</button>
+        </form>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>隊伍 ID</th>
+                    <th>說明書路徑</th>
+                    <th>海報路徑</th>
+                    <th>展示影片連結</th>
+                    <th>程式碼連結</th>
+                    <th>提交日期</th>
+                </tr>
+            </thead>
+            <tbody id="query-results">
+                <!-- 查詢結果會動態生成 -->
+            </tbody>
+        </table>
+    </div>
+
+    
+    <script>
+        // 查詢作品資料功能
+        function queryProject() {
+            const year = document.getElementById('year').value;
+            const teamName = document.getElementById('team-name').value;
+
+            // 模擬的查詢結果
+            const mockData = [
+                {
+                    id: 'T001',
+                    descriptionPath: '/projects/2024/T001/description.pdf',
+                    posterPath: '/projects/2024/T001/poster.png',
+                    videoLink: 'https://youtube.com/video1',
+                    codeLink: 'https://github.com/team1',
+                    submissionDate: '2024-12-01'
+                }
+            ];
+
+            const results = mockData.filter(project => project.id.includes(teamName));
+            const resultsTable = document.getElementById('query-results');
+            resultsTable.innerHTML = '';
+
+            if (results.length > 0) {
+                results.forEach(project => {
+                    resultsTable.innerHTML += `
+                        <tr>
+                            <td>${project.id}</td>
+                            <td>${project.descriptionPath}</td>
+                            <td>${project.posterPath}</td>
+                            <td><a href="${project.videoLink}" target="_blank">觀看影片</a></td>
+                            <td><a href="${project.codeLink}" target="_blank">查看程式碼</a></td>
+                            <td>${project.submissionDate}</td>
+                        </tr>
+                    `;
+                });
+            } else {
+                resultsTable.innerHTML = '<tr><td colspan="6">查無相關資料</td></tr>';
+            }
+        }
+
+        // 儲存作品資料功能
+        function saveProject() {
+            const teamId = document.getElementById('team-id').value;
+            const descriptionPath = document.getElementById('description-path').value;
+            const posterPath = document.getElementById('poster-path').value;
+            const videoLink = document.getElementById('video-link').value;
+            const codeLink = document.getElementById('code-link').value;
+            const submissionDate = document.getElementById('submission-date').value;
+
+            if (teamId && descriptionPath && posterPath && videoLink && codeLink && submissionDate) {
+                alert(`作品資料已儲存！\n隊伍 ID: ${teamId}`);
+                document.getElementById('manage-form').reset();
+            } else {
+                alert('請填寫所有欄位！');
+            }
+        }
+
+        // 刪除作品資料功能
+        function deleteProject() {
+            const deleteId = document.getElementById('delete-id').value;
+
+            if (deleteId) {
+                const confirmation = confirm(`確定要刪除隊伍 ID 為 ${deleteId} 的資料嗎？`);
+                if (confirmation) {
+                    alert(`隊伍 ID 為 ${deleteId} 的資料已刪除。`);
+                    document.getElementById('delete-form').reset();
+                }
+            } else {
+                alert('請輸入隊伍 ID！');
+            }
+        }
+    </script>
+</body>
+</html>

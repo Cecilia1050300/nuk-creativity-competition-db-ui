@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team 子系統</title>
+    <style>
+        body {
+            background-color: #003366; /* 深藍色 */
+            color: #fff; 
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            background-color: #FFFAF0; /* 米黃色 */
+            color: black;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 900px;
+        }
+        h2 {
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+        th, td {
+            text-align: center;
+            padding: 8px;
+        }
+        .button {
+            background-color: green;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .input-field {
+            padding: 5px;
+            width: 70%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Teams管理子系統</h2>
+        <!-- 查詢隊伍資訊 -->
+        <div class="content">
+            <form id="team-query-form">
+                <div class="field">
+                    <label for="team-name">輸入隊伍名稱</label>
+                    <input type="text" id="team-name" name="team-name" placeholder="例如：創意競賽隊" required>
+                </div>
+                <div class="actions">
+                    <li><input type="button" value="查詢" class="button primary" onclick="queryTeamInfo()"></li>
+				</div>
+            </form>
+        </div>
+
+        <h3>查看已參加隊伍成員</h3>
+        <!-- 成員資訊 -->
+        <table>
+            <thead>
+                <tr>
+                    <th>成員編號</th>
+                    <th>姓名</th>
+                    <th>學號</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>1</td><td>張小明</td><td>A12345678</td></tr>
+                <tr><td>2</td><td>李大華</td><td>B23456789</td></tr>
+                <tr><td>3</td><td>王小麗</td><td>C34567890</td></tr>
+                <tr><td>4</td><td>林天佑</td><td>D45678901</td></tr>
+                <tr><td>5</td><td>黃美惠</td><td>E56789012</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // 自動填寫當前時間
+        document.getElementById("teamCreatedTime").value = new Date().toISOString().slice(0, 19).replace("T", " ");
+
+        // 儲存隊伍資料
+        function saveTeam() {
+            const teamName = document.getElementById("teamName").value;
+            const mentorId = document.getElementById("mentorId").value;
+            const createdTime = document.getElementById("teamCreatedTime").value;
+
+            if (teamName) {
+                alert(`隊伍 ${teamName} 已成功儲存！\n指導老師: ${mentorId}\n創建時間: ${createdTime}`);
+            } else {
+                alert("請輸入隊伍名稱！");
+            }
+        }
+
+		function queryTeamInfo() {
+    const teamNameInput = document.getElementById("team-name").value;
+
+    // 假設的隊伍資訊
+    const teamData = {
+        "創意競賽隊": {
+            "instructor": "李指導",
+            "creationTime": "2024-12-15 14:30:00"
+        }
+    };
+
+    const resultDiv = document.getElementById("team-query-result");
+
+    if (teamData[teamNameInput]) {
+        const teamInfo = teamData[teamNameInput];
+        resultDiv.innerHTML = `
+            <h3>查詢結果</h3>
+            <p><strong>隊伍名稱：</strong>${teamNameInput}</p>
+            <p><strong>指導老師：</strong>${teamInfo.instructor}</p>
+            <p><strong>創建時間：</strong>${teamInfo.creationTime}</p>
+        `;
+    } else {
+        resultDiv.innerHTML = `<p style="color: red;">查無此隊伍資訊，請確認名稱是否正確。</p>`;
+    }
+}
+
+        // 動態生成隊伍排名表格
+        const teamRankTable = document.getElementById("teamRankTable");
+        for (let i = 1; i <= 15; i++) {
+            teamRankTable.innerHTML += `
+                <tr>
+                    <td>隊伍 ${i}</td>
+                    <td>
+                        <select>
+                            <option>未排名</option>
+                            ${Array.from({ length: 15 }, (_, index) => `<option>${index + 1}</option>`).join('')}
+                        </select>
+                    </td>
+                </tr>
+            `;
+        }
+    </script>
+</body>
+</html>

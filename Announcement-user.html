@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Announcement 管理子系統</title>
+    <style>
+        body {
+            background-color: #003366; /* 深藍色背景 */
+            color: #fff; /* 白色字體 */
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            background-color: #FFFAF0; /* 米黃色區塊背景 */
+            color: black;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 900px;
+        }
+        h2, h3 {
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+        th, td {
+            text-align: left;
+            padding: 8px;
+        }
+        .button {
+            background-color: green;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .input-field {
+            padding: 5px;
+            width: 100%;
+            margin: 5px 0;
+        }
+        .image-gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        .image-gallery img {
+            width: 200px;
+            height: auto;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Announcement 管理子系統 -->
+    <div class="container">
+        <h2>Announcement 管理子系統</h2>
+
+        <!-- 一般公告查詢 -->
+        <div>
+
+            <!-- 公告文字列表 -->
+            <h4>公告</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>公告標題</th>
+                        <th>公告內容</th>
+                        <th>公告日期</th>
+                        <th>張貼者</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>比賽規則公佈</td>
+                        <td>請參考附件了解最新比賽規則。</td>
+                        <td>2024-12-10</td>
+                        <td>系統管理員</td>
+                    </tr>
+                    <tr>
+                        <td>獎金資訊更新</td>
+                        <td>比賽獎金總額提升至 NT$100,000。</td>
+                        <td>2024-12-01</td>
+                        <td>系統管理員</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- 當年度比賽海報 -->
+            <h4>當年度比賽海報</h4>
+            <div class="image-gallery">
+                <img src="https://via.placeholder.com/200" alt="比賽海報 1">
+                <img src="https://via.placeholder.com/200" alt="比賽海報 2">
+                <img src="https://via.placeholder.com/200" alt="比賽海報 3">
+            </div>
+        </div>
+
+        
+    </div>
+
+    <script>
+        function publishAnnouncement() {
+            const title = document.getElementById('announcement-title').value;
+            const content = document.getElementById('announcement-content').value;
+            const date = document.getElementById('announcement-date').value;
+            const poster = document.getElementById('poster').value;
+
+            if (title && content && date && poster) {
+                alert(`公告已成功發佈！\n標題: ${title}\n內容: ${content}\n日期: ${date}\n張貼者: ${poster}`);
+            } else {
+                alert('請填寫所有公告欄位！');
+            }
+        }
+
+        function deleteAnnouncement() {
+            const title = document.getElementById('announcement-title').value;
+
+            if (title) {
+                const confirmation = confirm(`確定要刪除公告: ${title} 嗎？`);
+                if (confirmation) {
+                    alert(`公告 ${title} 已成功刪除。`);
+                }
+            } else {
+                alert('請輸入要刪除的公告標題！');
+            }
+        }
+
+        function uploadPoster() {
+            const posterFile = document.getElementById('upload-poster').files[0];
+
+            if (posterFile) {
+                alert(`宣傳海報 ${posterFile.name} 已成功上傳！`);
+            } else {
+                alert('請選擇要上傳的海報！');
+            }
+        }
+
+        function saveRules() {
+            const rules = document.getElementById('competition-rules').value;
+
+            if (rules) {
+                alert('比賽規則已成功儲存！');
+            } else {
+                alert('請輸入比賽規則！');
+            }
+        }
+    </script>
+</body>
+</html>

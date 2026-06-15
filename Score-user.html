@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Score 管理子系統</title>
+    <style>
+        body {
+            background-color: #003366; /* 深藍色 */
+            color: #fff;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            background-color: #FFFAF0; /* 米黃色 */
+            color: black;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 900px;
+        }
+        h2, h3 {
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+        th, td {
+            text-align: center;
+            padding: 8px;
+        }
+        .button {
+            background-color: green;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .input-field {
+            padding: 5px;
+            width: 70%;
+        }
+    </style>
+</head>
+<body>
+    <!-- Score 管理子系統 -->
+    <div class="container">
+        <h2>Score 管理子系統</h2>
+        
+        <!-- 一般成績查詢 -->
+        <div class="section">
+            <h3>成績查詢</h3>
+
+            <!-- 各參賽隊伍查詢 -->
+            <h4>各參賽隊伍查詢分數</h4>
+            <form id="score-query-form">
+                <label for="team-name">輸入隊伍名稱:</label>
+                <input type="text" id="team-name" name="team-name" placeholder="例如：創意競賽隊" required>
+                <button type="button" class="button" onclick="queryScore()">查詢</button>
+            </form>
+            <div id="score-result"></div>
+
+            <!-- 總排名 -->
+            <h4>總排名</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>名次</th>
+                        <th>隊伍名稱</th>
+                        <th>主題名稱</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>創意競賽隊</td>
+                        <td>智慧生活系統</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>科學探究隊</td>
+                        <td>AI 科技應用</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>環境保護隊</td>
+                        <td>綠色能源設計</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        
+    </div>
+
+    <script>
+        // 查詢分數功能
+        function queryScore() {
+            const teamName = document.getElementById("team-name").value;
+            const scoreData = {
+                "創意競賽隊": { score: 95, judges: "評審 A: 96, 評審 B: 94, 評審 C: 95" },
+                "科學探究隊": { score: 90, judges: "評審 A: 89, 評審 B: 92, 評審 C: 89" },
+                "環境保護隊": { score: 85, judges: "評審 A: 84, 評審 B: 86, 評審 C: 85" },
+                "健康管理隊": { score: 88, judges: "評審 A: 87, 評審 B: 89, 評審 C: 88" }
+            };
+            const resultDiv = document.getElementById("score-result");
+
+            if (scoreData[teamName]) {
+                const teamScore = scoreData[teamName];
+                resultDiv.innerHTML = `<p><strong>隊伍名稱:</strong> ${teamName}</p>
+                <p><strong>總分:</strong> ${teamScore.score}</p>
+                <p><strong>評審評分:</strong> ${teamScore.judges}</p>`;
+            } else {
+                resultDiv.innerHTML = `<p style="color: red;">查無此隊伍分數，請確認名稱是否正確。</p>`;
+            }
+        }
+
+        // 儲存評分功能
+        function saveScores() {
+            alert("評分已成功儲存！");
+        }
+    </script>
+</body>
+</html>
